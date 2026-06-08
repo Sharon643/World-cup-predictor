@@ -10,3 +10,7 @@
 | Random Forest | V2C(DIFF 4)   |     48.5%|
 | Logistic      | V3A           |    53.21%|
 | Logistic      | V3B           |    53.07%|
+| Logistic      | After 2000    |    57.88&|
+|               | with elo diff |          |
+| Xg Boost      | After 2000    |          |
+|               | with elo diff |    58.01%|

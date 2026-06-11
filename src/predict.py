@@ -22,6 +22,12 @@ team_stats = pd.read_csv(
     TEAM_STATS_PATH
 )
 team_stats = team_stats.set_index("team")
+# print(team_stats.loc["Netherlands"])
+
+# print()
+
+# print(team_stats.loc["Germany"])
+
 def predict_match(
     home_team,
     away_team,
@@ -107,3 +113,4 @@ def predict_match(
     "draw": float(round(probs[1] * 100, 2)),
     "away_win": float(round(probs[2] * 100, 2))
     }
+

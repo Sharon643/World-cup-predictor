@@ -9,15 +9,16 @@ def create_table(teams):
     for team in teams:
 
         table[team] = {
-
             "points": 0,
 
             "wins": 0,
-
             "draws": 0,
+            "losses": 0,
 
-            "losses": 0
-        }
+            "gf": 0,
+            "ga": 0,
+            "gd": 0
+}
 
     return table
 
@@ -37,12 +38,17 @@ def generate_group_matches(teams):
 
 
 
-def update_table(
-    table,
-    home_team,
-    away_team,
-    outcome
-):
+def update_table(table,home_team,away_team,home_score,away_score,outcome):
+
+    table[home_team]["gf"] += home_score
+    table[home_team]["ga"] += away_score
+
+    table[away_team]["gf"] += away_score
+    table[away_team]["ga"] += home_score
+
+    table[home_team]["gd"] = (table[home_team]["gf"]- table[home_team]["ga"] )
+
+    table[away_team]["gd"] = (table[away_team]["gf"]- table[away_team]["ga"])
 
     if outcome == "home_win":
 
@@ -86,8 +92,10 @@ def simulate_group(teams):
             table,
 
             home_team,
-
             away_team,
+
+            result["home_score"],
+            result["away_score"],
 
             result["outcome"]
 
@@ -97,27 +105,18 @@ def simulate_group(teams):
 
         table.items(),
 
-        key=lambda x: x[1]["points"],
+        key=lambda x: (
+
+            x[1]["points"],
+
+            x[1]["gd"],
+
+            x[1]["gf"]
+
+        ),
 
         reverse=True
 
     )
 
     return standings
-
-group = [
-
-    "Argentina",
-
-    "France",
-
-    "Japan",
-
-    "Mexico"
-]
-
-standings = simulate_group(group)
-
-for team, stats in standings:
-
-    print(team, stats)

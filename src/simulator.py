@@ -1,13 +1,10 @@
 from predict import predict_match
+from score_generator import generate_score
+from predict import team_stats
 
 import random
 
-def simulate_match(
-    home_team,
-    away_team,
-    neutral=1,
-    tournament_type="world_cup"
-):
+def simulate_match(home_team,away_team,neutral=1,tournament_type="world_cup"):
 
     probs = predict_match(
         home_team,
@@ -34,11 +31,21 @@ def simulate_match(
 
     )[0]
 
+    home_stats = team_stats.loc[home_team]
+
+    away_stats = team_stats.loc[away_team]
+
+    home_score, away_score = generate_score(outcome,home_stats,away_stats)
+
     return {
 
         "home_team": home_team,
 
         "away_team": away_team,
+
+        "home_score": home_score,
+
+        "away_score": away_score,
 
         "outcome": outcome,
 
@@ -52,14 +59,3 @@ results = {
     "draw": 0,
     "away_win": 0
 }
-
-for _ in range(10000):
-
-    result = simulate_match(
-        "Argentina",
-        "France"
-    )
-
-    results[
-        result["outcome"]
-    ] += 1

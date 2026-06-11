@@ -1,4 +1,4 @@
-from group_stage import simulate_group
+from src.group_stage import simulate_group
 
 def simulate_group_stage(groups):
 

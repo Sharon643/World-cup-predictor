@@ -1,4 +1,4 @@
-from simulator import simulate_match
+from src.simulator import simulate_match
 import random
 
 def simulate_knockout_match(team1,team2):

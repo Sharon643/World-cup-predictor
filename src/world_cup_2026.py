@@ -1,7 +1,6 @@
-from group_stage import simulate_group
-from groups_2026 import GROUPS
-from knockout import simulate_knockout_round
-import random
+from src.group_stage import simulate_group
+from src.groups_2026 import GROUPS
+from src.knockout import simulate_knockout_round
 
 
 def simulate_group_stage_2026(groups):
@@ -171,17 +170,30 @@ def simulate_world_cup_2026():
 
     return final["winners"][0]
 
-champions = {}
+def run_monte_carlo(num_simulations=500):
 
-for _ in range(500):
+    champions = {}
 
-    champion = simulate_world_cup_2026()
+    for _ in range(num_simulations):
 
-    champions[champion] = (
-        champions.get(champion, 0) + 1
-    )
-print("Winner :", champion)
-print("\nChampionship Rates\n")
-for team, wins in sorted(champions.items(),key=lambda x: x[1],reverse=True):
+        champion = simulate_world_cup_2026()
 
-    print(team,round(wins / 500 * 100,2),"%")
+        champions[champion] = (
+            champions.get(champion, 0) + 1
+        )
+
+    results = {}
+
+    for team, wins in champions.items():
+
+        results[team] = round(
+            wins / num_simulations * 100,
+            2
+        )
+
+    return results
+
+champ = run_monte_carlo(100)
+
+print(champ)
+

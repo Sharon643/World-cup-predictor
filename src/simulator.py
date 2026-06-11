@@ -1,6 +1,6 @@
-from predict import predict_match
-from score_generator import generate_score
-from predict import team_stats
+from src.predict import predict_match
+from src.score_generator import generate_score
+from src.predict import team_stats
 
 import random
 

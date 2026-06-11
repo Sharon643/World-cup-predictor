@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from group_stage import simulate_group
+from src.group_stage import simulate_group
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
